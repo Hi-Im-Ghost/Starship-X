@@ -7,20 +7,29 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class SpaceShip : MonoBehaviour
 {
+    [Header("Ship Movement Settings")]
     [SerializeField] float rollTorque = 100f;
-    [SerializeField] float pitchTorque = 200f;
-    [SerializeField] float yawTorque = 500f;
-    [SerializeField] float thrust = 100f;
+    [SerializeField] float pitchTorque = 100f;
+    [SerializeField] float yawTorque = 100f;
+    [SerializeField] float thrust = 50f;
     [SerializeField] float upThrust = 50f;
     [SerializeField] float StrafeThrust = 50f;
 
+    [Header("Boost Settings")]
+    [SerializeField] float maxBoostAmount = 20f;
+    [SerializeField] float boostDeprecationRate = 0.1f;
+    [SerializeField] float boostRechargeRate = 0.15f;
+    [SerializeField] float boostMultiplier = 10f;
+    public bool boosting = false;
+    public float currentBoostAmount;
+
     [SerializeField, Range(0.001f, 0.999f)]
-    float thrustGlideReduction = 0.5f;
+    float thrustGlideReduction = 0.330f;
     [SerializeField, Range(0.001f, 0.999f)]
     float upDownGlideReduction = 0.111f;
     [SerializeField, Range(0.001f, 0.999f)]
     float leftRightGlideReduction = 0.111f;
-    float glide = 0f;
+    float glide, verticalGlide, horizontalGlide = 0f;
 
     Rigidbody rb;
 
@@ -33,12 +42,33 @@ public class SpaceShip : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        currentBoostAmount = maxBoostAmount;
     }
 
 
     void FixedUpdate()
     {
+        HandleBoosting();
         HandleMove();
+    }
+
+    void HandleBoosting()
+    {
+        if (boosting && currentBoostAmount > 0f)
+        {
+            currentBoostAmount -= boostDeprecationRate;
+            if(currentBoostAmount <= 0f)
+            {
+                boosting = false;
+            }
+        }
+        else
+        {
+            if(currentBoostAmount < maxBoostAmount)
+            {
+                currentBoostAmount += boostRechargeRate;
+            }
+        }
     }
 
     void HandleMove()
@@ -49,16 +79,46 @@ public class SpaceShip : MonoBehaviour
         
         if(thrust1D > 0.1f || thrust1D < -0.1)
         {
-            float currentThrust = thrust;
+            float currentThrust; 
+            if(boosting)
+            {
+                currentThrust = thrust * boostMultiplier;
+            }
+            else
+            {
+                currentThrust = thrust;
+            }
             rb.AddRelativeForce(Vector3.forward * thrust1D* currentThrust * Time.deltaTime);
             glide = thrust;
         }
         else
         {
             rb.AddRelativeForce(Vector3.forward * glide * Time.deltaTime);
-            glide *= Time.deltaTime;
+            glide *= thrustGlideReduction;
         }
-    
+
+        if (upDown1D > 0.1f || upDown1D < -0.1)
+        {
+            rb.AddRelativeForce(Vector3.up * upDown1D * upThrust * Time.fixedDeltaTime);
+            verticalGlide = upDown1D * upThrust;
+        }
+        else
+        {
+            rb.AddRelativeForce(Vector3.up * verticalGlide * Time.fixedDeltaTime);
+            verticalGlide *= upDownGlideReduction;
+        }
+
+        if (strafe1D > 0.1f || strafe1D < -0.1)
+        {
+            rb.AddRelativeForce(Vector3.right * strafe1D * upThrust * Time.fixedDeltaTime);
+            horizontalGlide = strafe1D * StrafeThrust;
+        }
+        else
+        {
+            rb.AddRelativeForce(Vector3.right * horizontalGlide * Time.fixedDeltaTime);
+            horizontalGlide *= leftRightGlideReduction;
+        }
+
     }
 
     public void OnThrust(InputAction.CallbackContext context)
@@ -80,5 +140,9 @@ public class SpaceShip : MonoBehaviour
     public void OnPitchView(InputAction.CallbackContext context)
     {
         pitchYaw = context.ReadValue<Vector2>();
+    }
+    public void OnBoost(InputAction.CallbackContext context)
+    {
+        boosting = context.performed;
     }
 }
