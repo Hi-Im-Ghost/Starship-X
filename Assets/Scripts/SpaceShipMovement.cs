@@ -66,7 +66,7 @@ public class SpaceShipMovement : MonoBehaviour
         {
             if(currentBoostAmount < maxBoostAmount)
             {
-                currentBoostAmount += boostRechargeRate;
+                currentBoostAmount += boostRechargeRate; //przerobic na zbieranie energii
             }
         }
     }
