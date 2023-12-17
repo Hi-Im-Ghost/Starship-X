@@ -338,6 +338,7 @@ GameObject:
   - component: {fileID: 992645818404522333}
   - component: {fileID: 3385949357616798185}
   - component: {fileID: 7636156105178948166}
+  - component: {fileID: -4401659204452520272}
   - component: {fileID: 5070745706500147241}
   m_Layer: 0
   m_Name: Player
@@ -401,9 +402,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a38d4808dc8a734396cac7d2a91c0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rollTorque: 100
-  pitchTorque: 100
-  yawTorque: 100
+  rollTorque: 150
+  pitchTorque: 250
+  yawTorque: 250
   thrust: 75
   upThrust: 75
   StrafeThrust: 75
@@ -543,6 +544,28 @@ MonoBehaviour:
   m_DefaultActionMap: Ship Controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-4401659204452520272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666038303060312938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676e90211f6555843aa3c3020f7bf1af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunsTransform: []
+  shootableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  shootRange: 200
+  targetInRange: 0
+  missile: []
+  particleMissile: {fileID: 0}
+  damage: 10
+  ammo: 10
 --- !u!64 &5070745706500147241
 MeshCollider:
   m_ObjectHideFlags: 0
