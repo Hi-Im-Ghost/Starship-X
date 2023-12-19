@@ -8,6 +8,7 @@ public class ShootingScript : MonoBehaviour
 {
     [Header("Guns Settings")]
     [SerializeField] Transform[] gunsTransform;
+    [SerializeField] Transform middlePoint;
     [SerializeField] float shootRange = 200f;
     [SerializeField] bool targetInRange = false;
     [SerializeField] int missileAmmo = 12;
@@ -23,8 +24,8 @@ public class ShootingScript : MonoBehaviour
     {
         HandleShooting();
     }
-    //30 min Ep4 celownik dla kilku dzialek
-    //Zrobic UIManager dla ammo i boost
+
+
     void HandleShooting()
     {
         if (shooting && missileAmmo > 0)
@@ -50,7 +51,7 @@ public class ShootingScript : MonoBehaviour
         Rigidbody missileRb = missile.GetComponent<Rigidbody>();
         missileRb.velocity = missile.transform.forward * missileSpeed;
 
-        //StartCoroutine(DestroyAfterRange()); Dodac ze po przebyciu okreslonego dystansu jest niszczona
+        StartCoroutine(DestroyAfterRange(missile)); 
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -58,10 +59,26 @@ public class ShootingScript : MonoBehaviour
         shooting = context.performed;
     }
 
-    /*
-        private IEnumerator DestroyAfterRange()
+    
+    private IEnumerator DestroyAfterRange(GameObject toDestroy)
+    {
+        float elapsedDistance = 0f;
+        float maxDistance = shootRange; // Maksymalny dystans jaki pokona pocisk
+
+        while (elapsedDistance < maxDistance)
         {
-            yield return new WaitForSeconds(destroyDelay);
-            Destroy(gameObject);
-        }*/
+            // Sprawdzenie czy obiekt wciaz istnieje
+            if (toDestroy == null)
+                yield break; // Wyjscie z funkcji jesli obiekt zostal juz zniszczony
+
+            // Poczekaj jedna klatke
+            yield return null;
+
+            // Zaktualizuj odleglosc na podstawie predkosci pocisku i czasu
+            elapsedDistance += toDestroy.GetComponent<Rigidbody>().velocity.magnitude * Time.deltaTime;
+        }
+
+        // Zniszcz obiekt po osi¹gnieciu maksymalnego dystansu
+        Destroy(toDestroy);
+    }
 }

@@ -31,19 +31,22 @@ public class Missile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        //if (shootableMask == (shootableMask | (1 << collision.gameObject.layer)))
-        //{
-        if (impactParticles)
+        if (shootableMask == (shootableMask | (1 << collision.gameObject.layer)))
         {
-            Instantiate(impactParticles, collision.contacts[0].point, Quaternion.identity);
-        }
+            if (impactParticles)
+            {
+                Instantiate(impactParticles, collision.contacts[0].point, Quaternion.identity);
+            }
 
-        if (impactSound)
-        {
-            audioSource.Play();
+            if (impactSound)
+            {
+                audioSource.Play();
+            }
+
+
+            Destroy(collision.gameObject); //Tu zadawanie obrazen jesli to jest jakis wrog
+            Destroy(gameObject);
+        
         }
-        Destroy(collision.gameObject); //Tu zadawanie obrazen jesli to jest jakis wrog
-        Destroy(gameObject);
-        //}
     }
 }

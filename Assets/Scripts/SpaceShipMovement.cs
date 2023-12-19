@@ -181,10 +181,13 @@ public class SpaceShipMovement : MonoBehaviour
     public void OnPitchView(InputAction.CallbackContext context)
     {
         pitchYaw = context.ReadValue<Vector2>(); // ruch mysza
+        pitchYaw = Vector2.ClampMagnitude(pitchYaw, 1.0f);
     }
 
     public void OnBoost(InputAction.CallbackContext context)
     {
         boosting = context.performed; // boost
     }
+
+
 }
