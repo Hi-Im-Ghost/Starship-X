@@ -6,7 +6,6 @@ public class Missile : MonoBehaviour
 {
     [Header("Missile Settings")]
     [SerializeField] LayerMask shootableMask;
-    [SerializeField] ParticleSystem missileParticle;
     [SerializeField] ParticleSystem impactParticles;
     [SerializeField] AudioClip impactSound;
 

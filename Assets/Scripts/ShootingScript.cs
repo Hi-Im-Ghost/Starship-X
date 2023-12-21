@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,33 +7,53 @@ public class ShootingScript : MonoBehaviour
     [Header("Guns Settings")]
     [SerializeField] Transform[] gunsTransform;
     [SerializeField] Transform middlePoint;
-    [SerializeField] float shootRange = 200f;
-    [SerializeField] bool targetInRange = false;
+    [SerializeField] float shootRange = 100f;
     [SerializeField] int missileAmmo = 12;
 
-    [Header("Missile Controler Settings")]
+    [Header("Missile Controller Settings")]
     [SerializeField] GameObject missilePrefab;
     [SerializeField] float missileDamage = 10f;
-    [SerializeField] float missileSpeed = 50f;
+    [SerializeField] float missileSpeed = 10f;
 
     public bool shooting = false;
+    private Camera cam;
+
+    private void Awake()
+    {
+        cam = Camera.main;
+    }
 
     void FixedUpdate()
     {
         HandleShooting();
     }
 
-
     void HandleShooting()
     {
         if (shooting && missileAmmo > 0)
         {
-            foreach (Transform missile in gunsTransform)
+            RaycastHit hitInfo;
+            Vector3 targetPosition;
+
+            if (TargetInfo.isTargetInRange(middlePoint.transform.position, cam.transform.forward, out hitInfo, shootRange))
             {
-                ShootMissile(missile.position, missile.rotation);
-                missileAmmo--;
-                
+                targetPosition = hitInfo.point;
             }
+            else
+            {
+                // Domyslny punkt gdy raycast nie trafi w zaden punkt
+                targetPosition = middlePoint.transform.position + cam.transform.forward * shootRange;
+            }
+            foreach (Transform missileGun in gunsTransform)
+            {
+                //Vector3 localHitPosition = missileGun.transform.InverseTransformPoint(targetPosition);
+                Vector3 randomOffset = Random.onUnitSphere * 2.0f; // Przesuniecie o losowa wartosc na sferze o promieniu 0.5
+                Vector3 adjustedTargetPosition = targetPosition + randomOffset;
+                // Wystrzel pocisk w kierunku punktu 
+                ShootMissile(missileGun.position, adjustedTargetPosition, missileGun.rotation);
+                missileAmmo--;
+            }
+
             shooting = false;
         }
         else
@@ -45,13 +63,16 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
-    public void ShootMissile(Vector3 position, Quaternion rotation)
+    public void ShootMissile(Vector3 startPosition, Vector3 targetPosition, Quaternion rotation)
     {
-        var missile = Instantiate(missilePrefab, position, rotation);
-        Rigidbody missileRb = missile.GetComponent<Rigidbody>();
-        missileRb.velocity = missile.transform.forward * missileSpeed;
+        // Oblicz kierunek
+        Vector3 direction = targetPosition - startPosition;
+        var missile = Instantiate(missilePrefab, startPosition, rotation);
 
-        StartCoroutine(DestroyAfterRange(missile)); 
+        Rigidbody missileRb = missile.GetComponent<Rigidbody>();
+        missileRb.AddForce(direction.normalized * missileSpeed, ForceMode.Impulse);
+
+        StartCoroutine(DestroyAfterTime(missile, shootRange / missileSpeed));
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -59,26 +80,13 @@ public class ShootingScript : MonoBehaviour
         shooting = context.performed;
     }
 
-    
-    private IEnumerator DestroyAfterRange(GameObject toDestroy)
+    private IEnumerator DestroyAfterTime(GameObject toDestroy, float destroyDelay)
     {
-        float elapsedDistance = 0f;
-        float maxDistance = shootRange; // Maksymalny dystans jaki pokona pocisk
+        yield return new WaitForSeconds(destroyDelay);
 
-        while (elapsedDistance < maxDistance)
+        if (toDestroy != null)
         {
-            // Sprawdzenie czy obiekt wciaz istnieje
-            if (toDestroy == null)
-                yield break; // Wyjscie z funkcji jesli obiekt zostal juz zniszczony
-
-            // Poczekaj jedna klatke
-            yield return null;
-
-            // Zaktualizuj odleglosc na podstawie predkosci pocisku i czasu
-            elapsedDistance += toDestroy.GetComponent<Rigidbody>().velocity.magnitude * Time.deltaTime;
+            Destroy(toDestroy);
         }
-
-        // Zniszcz obiekt po osi¹gnieciu maksymalnego dystansu
-        Destroy(toDestroy);
     }
 }
