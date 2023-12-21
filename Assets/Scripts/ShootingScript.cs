@@ -8,7 +8,8 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] Transform[] gunsTransform;
     [SerializeField] Transform middlePoint;
     [SerializeField] float shootRange = 100f;
-    [SerializeField] int missileAmmo = 12;
+    [SerializeField] int missileAmmo = 32;
+    [SerializeField] int maxMissileAmmo = 128;
 
     [Header("Missile Controller Settings")]
     [SerializeField] GameObject missilePrefab;
@@ -32,6 +33,8 @@ public class ShootingScript : MonoBehaviour
     {
         if (shooting && missileAmmo > 0)
         {
+            StartCoroutine(HandleShootingVibration());
+
             RaycastHit hitInfo;
             Vector3 targetPosition;
 
@@ -53,12 +56,10 @@ public class ShootingScript : MonoBehaviour
                 ShootMissile(missileGun.position, adjustedTargetPosition, missileGun.rotation);
                 missileAmmo--;
             }
-
             shooting = false;
         }
         else
         {
-            // Komunikat o braku amunicji 
             shooting = false;
         }
     }
@@ -88,5 +89,11 @@ public class ShootingScript : MonoBehaviour
         {
             Destroy(toDestroy);
         }
+    }
+    IEnumerator HandleShootingVibration()
+    {
+        Gamepad.current.SetMotorSpeeds(0.9f, 0.1f);
+        yield return new WaitForSeconds(0.2f); // Czas trwania wibracji 
+        Gamepad.current.ResetHaptics(); // Zresetuj wibracje
     }
 }
