@@ -58,11 +58,17 @@ public class SpaceShipMovement : MonoBehaviour
     {
         if (boosting && currentBoostAmount > 0f)
         {
-            Gamepad.current.SetMotorSpeeds(0.1f, 0.2f);
+            if(Gamepad.current != null) 
+            { 
+                Gamepad.current.SetMotorSpeeds(0.1f, 0.2f);
+            }
             currentBoostAmount -= boostDeprecationRate; // Zmniejszenie ilosci boostu
             if (currentBoostAmount <= 0f)
             {
-                Gamepad.current.ResetHaptics();
+                if (Gamepad.current != null)
+                {
+                    Gamepad.current.ResetHaptics();
+                }
                 boosting = false; // Wylaczenie boostu po wyczerpaniu ilosci
             }
         }
@@ -70,7 +76,10 @@ public class SpaceShipMovement : MonoBehaviour
         {
             if (currentBoostAmount < maxBoostAmount)
             {
-                Gamepad.current.ResetHaptics();
+                if (Gamepad.current != null)
+                {
+                    Gamepad.current.ResetHaptics();
+                }
                 currentBoostAmount += boostRechargeRate; //tu dawac paczki z energia
             }
         }
@@ -197,13 +206,19 @@ public class SpaceShipMovement : MonoBehaviour
     {
         if(collision != null)
         {
-            Gamepad.current.SetMotorSpeeds(0.9f, 0.9f);
+            if (Gamepad.current != null)
+            {
+                Gamepad.current.SetMotorSpeeds(0.9f, 0.9f);
+            }
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        Gamepad.current.ResetHaptics();
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.ResetHaptics();
+        }
     }
 
 }

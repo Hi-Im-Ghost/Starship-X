@@ -641,11 +641,11 @@ MonoBehaviour:
   middlePoint: {fileID: 1111777174261958863}
   shootRange: 100
   missileAmmo: 64
+  maxMissileAmmo: 512
   missilePrefab: {fileID: 4527628991409457559, guid: 34d6dd193247ae5428995ffe6a3f3d80,
     type: 3}
   missileDamage: 10
-  missileSpeed: 10
-  shooting: 0
+  missileSpeed: 15
 --- !u!64 &5070745706500147241
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid Lava Blue Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1056666096333670, guid: f603e71ddc270d54192200e95673e2a6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619919757320400, guid: f603e71ddc270d54192200e95673e2a6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4579553980399578, guid: f603e71ddc270d54192200e95673e2a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60,6 +68,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5240610333831464211}
+    - targetCorrespondingSourceObject: {fileID: 1056666096333670, guid: f603e71ddc270d54192200e95673e2a6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4927874511986366077}
   m_SourcePrefab: {fileID: 100100000, guid: f603e71ddc270d54192200e95673e2a6, type: 3}
 --- !u!1 &6415054007178172240 stripped
 GameObject:
@@ -94,3 +106,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4927874511986366077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6415054007178172240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1eeeb14e141d6479e3c3923844b6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minForce: 10
+  maxForce: 20
+  minTorque: 10
+  maxTorque: 20

@@ -8,9 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1014899055782066, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1822345149752838, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
       propertyPath: m_Name
       value: Asteroid Lava Red Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822345149752838, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4992838361154946, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,6 +68,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6485450490606903350}
+    - targetCorrespondingSourceObject: {fileID: 1822345149752838, guid: 45b62242ff99b0a48a47f713cd6d1687,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7478777339995991920}
   m_SourcePrefab: {fileID: 100100000, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
 --- !u!1 &8609309612551721578 stripped
 GameObject:
@@ -94,3 +106,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7478777339995991920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609309612551721578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1eeeb14e141d6479e3c3923844b6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minForce: 10
+  maxForce: 20
+  minTorque: 10
+  maxTorque: 20

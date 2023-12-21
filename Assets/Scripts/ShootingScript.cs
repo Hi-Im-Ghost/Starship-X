@@ -8,15 +8,15 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] Transform[] gunsTransform;
     [SerializeField] Transform middlePoint;
     [SerializeField] float shootRange = 100f;
-    [SerializeField] int missileAmmo = 32;
-    [SerializeField] int maxMissileAmmo = 128;
+    [SerializeField] int missileAmmo = 64;
+    [SerializeField] int maxMissileAmmo = 512;
 
     [Header("Missile Controller Settings")]
     [SerializeField] GameObject missilePrefab;
     [SerializeField] float missileDamage = 10f;
-    [SerializeField] float missileSpeed = 10f;
+    [SerializeField] float missileSpeed = 15f;
 
-    public bool shooting = false;
+    bool shooting = false;
     private Camera cam;
 
     private void Awake()
@@ -33,8 +33,10 @@ public class ShootingScript : MonoBehaviour
     {
         if (shooting && missileAmmo > 0)
         {
-            StartCoroutine(HandleShootingVibration());
-
+            if (Gamepad.current != null)
+            {
+                StartCoroutine(HandleShootingVibration());
+            }
             RaycastHit hitInfo;
             Vector3 targetPosition;
 
