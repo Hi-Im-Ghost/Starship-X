@@ -8,7 +8,7 @@ public class Missile : MonoBehaviour
     [SerializeField] LayerMask shootableMask;
     [SerializeField] ParticleSystem impactParticles;
     [SerializeField] AudioClip impactSound;
-
+    [SerializeField] float missileDamage = 20f;
 
     AudioSource audioSource;
     // Start is called before the first frame update
@@ -27,6 +27,12 @@ public class Missile : MonoBehaviour
         audioSource.clip = impactSound;
     }
 
+    void ApplyDamage(HealthComponent healthComponent)
+    {
+        healthComponent.TakeDamage(missileDamage);
+        
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -34,16 +40,18 @@ public class Missile : MonoBehaviour
         {
             if (impactParticles)
             {
-                Instantiate(impactParticles, collision.contacts[0].point, Quaternion.identity);
+                Destroy(Instantiate(impactParticles, collision.contacts[0].point, Quaternion.identity),2f);
             }
 
             if (impactSound)
             {
                 audioSource.Play();
             }
+            if (collision.gameObject.GetComponent<HealthComponent>())
+            {
+                ApplyDamage(collision.gameObject.GetComponent<HealthComponent>());
+            }
 
-
-            Destroy(collision.gameObject); //Tu zadawanie obrazen jesli to jest jakis wrog
             Destroy(gameObject);
         
         }

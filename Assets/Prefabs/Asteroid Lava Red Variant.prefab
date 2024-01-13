@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1822345149752838, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
+      propertyPath: m_TagString
+      value: Asteroid
+      objectReference: {fileID: 0}
     - target: {fileID: 4992838361154946, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -72,6 +76,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -7478777339995991920}
+    - targetCorrespondingSourceObject: {fileID: 1822345149752838, guid: 45b62242ff99b0a48a47f713cd6d1687,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1408100592223195500}
   m_SourcePrefab: {fileID: 100100000, guid: 45b62242ff99b0a48a47f713cd6d1687, type: 3}
 --- !u!1 &8609309612551721578 stripped
 GameObject:
@@ -87,7 +95,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8609309612551721578}
   serializedVersion: 4
-  m_Mass: 0.4
+  m_Mass: 0.7
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -122,3 +130,18 @@ MonoBehaviour:
   maxForce: 20
   minTorque: 10
   maxTorque: 20
+--- !u!114 &1408100592223195500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609309612551721578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61cb31ca1f6c9004f95a85101f875116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 40
+  destructionParticles: {fileID: 5543232904026598070, guid: ea56e718354a421468d6345e93c5cd71,
+    type: 3}

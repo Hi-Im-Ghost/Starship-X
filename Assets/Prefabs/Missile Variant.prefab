@@ -161,6 +161,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1259865673663102, guid: 8b227e0429c621940acb9e2e8d18d12f, type: 3}
+      propertyPath: m_TagString
+      value: Missle
+      objectReference: {fileID: 0}
     - target: {fileID: 4843094304395452, guid: 8b227e0429c621940acb9e2e8d18d12f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -203,10 +207,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5094657773458214264, guid: 8b227e0429c621940acb9e2e8d18d12f,
         type: 3}
+      propertyPath: missileDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094657773458214264, guid: 8b227e0429c621940acb9e2e8d18d12f,
+        type: 3}
       propertyPath: impactParticles
       value: 
       objectReference: {fileID: 7328863247718476739, guid: cc279a9aa48ae8f44b4aff297cd200df,
         type: 3}
+    - target: {fileID: 5195226747721441349, guid: 8b227e0429c621940acb9e2e8d18d12f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5195226747721441349, guid: 8b227e0429c621940acb9e2e8d18d12f,
         type: 3}
       propertyPath: m_IsKinematic

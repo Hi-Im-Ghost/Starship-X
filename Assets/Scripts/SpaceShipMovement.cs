@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -17,12 +18,13 @@ public class SpaceShipMovement : MonoBehaviour
 
     // Ustawienia boostu
     [Header("Boost Settings")]
+    [SerializeField] Image boostBar;
     [SerializeField] float maxBoostAmount = 20f; // Maksymalna wartosc boostu
     [SerializeField] float boostDeprecationRate = 0.1f; // Tempo utraty boostu
     [SerializeField] float boostRechargeRate = 0.15f; // Tempo odnawiania boostu
     [SerializeField] float boostMultiplier = 10f; // Mnoznik boostu
     bool boosting = false; // Zmienna do sprawdzania czy jest aktywowany boost
-    float currentBoostAmount; // Obecna ilosc boostu
+    float currentBoostAmount = 0; // Obecna ilosc boostu
 
     // Ustawienia wytracania prêdkoœci
     [SerializeField, Range(0.001f, 0.999f)]
@@ -46,6 +48,10 @@ public class SpaceShipMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>(); // Inicjalizacja komponentu Rigidbody
         currentBoostAmount = maxBoostAmount; // Ustawienie maksymalnej iloœci boostu na starcie
+        if (boostBar)
+        {
+            UpdateBoostBar(maxBoostAmount, currentBoostAmount);
+        }
     }
 
     void FixedUpdate()
@@ -56,6 +62,11 @@ public class SpaceShipMovement : MonoBehaviour
     // Metoda do obslugi boostu
     void HandleBoosting()
     {
+        if (boostBar)
+        {
+            UpdateBoostBar(maxBoostAmount, currentBoostAmount);
+        }
+
         if (boosting && currentBoostAmount > 0f)
         {
             if(Gamepad.current != null) 
@@ -63,6 +74,7 @@ public class SpaceShipMovement : MonoBehaviour
                 Gamepad.current.SetMotorSpeeds(0.1f, 0.2f);
             }
             currentBoostAmount -= boostDeprecationRate; // Zmniejszenie ilosci boostu
+
             if (currentBoostAmount <= 0f)
             {
                 if (Gamepad.current != null)
@@ -200,6 +212,11 @@ public class SpaceShipMovement : MonoBehaviour
     {
         boosting = context.performed; // boost
 
+    }
+
+    public void UpdateBoostBar(float maxBoost, float currentBoost)
+    {
+        boostBar.fillAmount = currentBoost / maxBoost;
     }
 
     private void OnCollisionEnter(Collision collision)

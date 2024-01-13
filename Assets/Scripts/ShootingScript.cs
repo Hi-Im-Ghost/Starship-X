@@ -13,7 +13,6 @@ public class ShootingScript : MonoBehaviour
 
     [Header("Missile Controller Settings")]
     [SerializeField] GameObject missilePrefab;
-    [SerializeField] float missileDamage = 10f;
     [SerializeField] float missileSpeed = 15f;
 
     bool shooting = false;
