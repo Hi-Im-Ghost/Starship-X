@@ -64,6 +64,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 65566858718617196, guid: 45b62242ff99b0a48a47f713cd6d1687,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -142,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61cb31ca1f6c9004f95a85101f875116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  maxHealth: 100
+  currentHealth: 0
   destructionParticles: {fileID: 5543232904026598070, guid: ea56e718354a421468d6345e93c5cd71,
     type: 3}
+  healthBar: {fileID: 0}

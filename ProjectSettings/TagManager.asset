@@ -8,6 +8,8 @@ TagManager:
   - Base
   - Enemy
   - Missle
+  - Ammo
+  - Energy
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Shootable
-  - 
+  - Bullet
   - 
   - 
   - 

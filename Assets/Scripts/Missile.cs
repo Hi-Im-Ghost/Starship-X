@@ -33,27 +33,27 @@ public class Missile : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-
         if (shootableMask == (shootableMask | (1 << collision.gameObject.layer)))
-        {
+        {   
             if (impactParticles)
             {
-                Destroy(Instantiate(impactParticles, collision.contacts[0].point, Quaternion.identity),2f);
+                Instantiate(impactParticles, collision.ClosestPoint(transform.position), Quaternion.identity);
             }
-
             if (impactSound)
             {
                 audioSource.Play();
             }
-            if (collision.gameObject.GetComponent<HealthComponent>())
+            if (collision.gameObject.GetComponentInParent<HealthComponent>())
             {
-                ApplyDamage(collision.gameObject.GetComponent<HealthComponent>());
-            }
+                ApplyDamage(collision.gameObject.GetComponentInParent<HealthComponent>());
 
+            }else if(collision.gameObject.CompareTag("Base"))
+            {
+                GameManager.Instance.addBarrierBase(-missileDamage);
+            }
             Destroy(gameObject);
-        
-        }
+        }  
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class SpaceShipMovement : MonoBehaviour
+public class PlayerComponent : MonoBehaviour
 {
     // Ustawienia ruchu statku
     [Header("Ship Movement Settings")]
@@ -237,5 +237,12 @@ public class SpaceShipMovement : MonoBehaviour
             Gamepad.current.ResetHaptics();
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Energy") && GameManager.Instance.getBarrierBase() < GameManager.Instance.getMaxBarrierBase())
+        {
+            GameManager.Instance.addBarrierBase(20);
+            Destroy(other.gameObject);
+        }
+    }
 }

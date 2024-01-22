@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5609415886248262037}
+  - component: {fileID: 759238073774671091}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -37,6 +38,29 @@ Transform:
   - {fileID: 2906331604066662229}
   m_Father: {fileID: 1913107612388783680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &759238073774671091
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505250192328855019}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 119
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.43
+  m_Height: 12
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.45}
 --- !u!1 &927285957161769654
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +495,7 @@ MonoBehaviour:
   thrust: 75
   upThrust: 75
   strafeThrust: 75
+  boostBar: {fileID: 0}
   maxBoostAmount: 20
   boostDeprecationRate: 0.1
   boostRechargeRate: 0.15
@@ -639,7 +664,9 @@ MonoBehaviour:
   - {fileID: 4539100321367767392}
   - {fileID: 6770765009229378974}
   middlePoint: {fileID: 1111777174261958863}
+  ammoText: {fileID: 0}
   shootRange: 100
+  reloadingTime: 1
   missileAmmo: 64
   maxMissileAmmo: 512
   missilePrefab: {fileID: 4527628991409457559, guid: 34d6dd193247ae5428995ffe6a3f3d80,

@@ -47,6 +47,7 @@ MonoBehaviour:
   asteroidPrefab:
   - {fileID: 6415054007178172240, guid: 692bd49ef472b2949866183acded011c, type: 3}
   - {fileID: 8609309612551721578, guid: 290ee59fcd05ae34cb0a56c40695b7d0, type: 3}
-  asteroidAmount: 400
-  minRandomSpawn: -500
-  maxRandomSpawn: 500
+  asteroidAmount: 1000
+  minRandomSpawn: -1500
+  maxRandomSpawn: 1500
+  color: {r: 0.95512486, g: 1, b: 0, a: 1}

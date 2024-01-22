@@ -1,13 +1,17 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
+using Unity.VisualScripting;
 
 public class ShootingScript : MonoBehaviour
 {
     [Header("Guns Settings")]
     [SerializeField] Transform[] gunsTransform;
     [SerializeField] Transform middlePoint;
+    [SerializeField] TextMeshProUGUI ammoText;
     [SerializeField] float shootRange = 100f;
+    [SerializeField] float reloadingTime = 1.0f;
     [SerializeField] int missileAmmo = 64;
     [SerializeField] int maxMissileAmmo = 512;
 
@@ -16,7 +20,17 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] float missileSpeed = 15f;
 
     bool shooting = false;
+    private bool canShoot = true;
     private Camera cam;
+
+
+    private void Start()
+    {
+        if (ammoText)
+        {
+            ammoText.text = missileAmmo.ToString();
+        }
+    }
 
     private void Awake()
     {
@@ -30,7 +44,7 @@ public class ShootingScript : MonoBehaviour
 
     void HandleShooting()
     {
-        if (shooting && missileAmmo > 0)
+        if (shooting && missileAmmo > 0 && canShoot)
         {
             if (Gamepad.current != null)
             {
@@ -51,13 +65,19 @@ public class ShootingScript : MonoBehaviour
             foreach (Transform missileGun in gunsTransform)
             {
                 //Vector3 localHitPosition = missileGun.transform.InverseTransformPoint(targetPosition);
-                Vector3 randomOffset = Random.onUnitSphere * 2.0f; // Przesuniecie o losowa wartosc na sferze o promieniu 0.5
+                Vector3 randomOffset = Random.onUnitSphere * 1.0f; // Przesuniecie o losowa wartosc na sferze o promieniu 0.5
                 Vector3 adjustedTargetPosition = targetPosition + randomOffset;
                 // Wystrzel pocisk w kierunku punktu 
                 ShootMissile(missileGun.position, adjustedTargetPosition, missileGun.rotation);
                 missileAmmo--;
+                if (ammoText)
+                {
+                    ammoText.text = missileAmmo.ToString();
+                }
             }
             shooting = false;
+            canShoot = false;
+            StartCoroutine(EnableShootingAfterDelay(reloadingTime));
         }
         else
         {
@@ -96,5 +116,29 @@ public class ShootingScript : MonoBehaviour
         Gamepad.current.SetMotorSpeeds(0.9f, 0.1f);
         yield return new WaitForSeconds(0.2f); // Czas trwania wibracji 
         Gamepad.current.ResetHaptics(); // Zresetuj wibracje
+    }
+
+    IEnumerator EnableShootingAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canShoot = true;  
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ammo") && missileAmmo < maxMissileAmmo)
+        {
+            missileAmmo+=24;
+            if (missileAmmo >= maxMissileAmmo)
+            {
+                missileAmmo = maxMissileAmmo;
+            }
+
+            if (ammoText)
+            {
+                ammoText.text = missileAmmo.ToString();
+            }
+            Destroy(other.gameObject);
+        }
     }
 }

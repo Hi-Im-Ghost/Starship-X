@@ -19,7 +19,7 @@ public class PlayerHealthComponent : HealthComponent
 
     protected override void OnDestroy()
     {
-
         base.OnDestroy();
+        GameManager.Instance.EndGame();
     }
 }
