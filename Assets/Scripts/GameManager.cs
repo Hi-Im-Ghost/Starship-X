@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
@@ -28,22 +29,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI killsText;
     //Zmienna przechowujaca tekst wytrzymalosci bariery bazy
     [SerializeField] TextMeshProUGUI barrierText;
+    [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject endScreen;
+    [SerializeField] ParticleSystem particleBase;
     [Header("Spawn Settings")]
     // ref do spawnera 
     [SerializeField] Spawner[] spawners;
-
+    bool pause = false;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(base.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(base.gameObject);
         }
+
     }
 
     void Start()
@@ -68,6 +73,7 @@ public class GameManager : MonoBehaviour
             roundText.text = "Round " + round.ToString();
         }else if(barrier <= 0)
         {
+            particleBase.Play();
             EndGame();
         } 
     }
@@ -123,31 +129,36 @@ public class GameManager : MonoBehaviour
     //metoda do aktywowania ekranu pauzy gry
     public void PauseGame()
     {
+        Gamepad.current.ResetHaptics();
         //zatrzymaj czas gry
         Time.timeScale = 0;
         //Odblokuj kursor myszy
         Cursor.lockState = CursorLockMode.None;
-        //pauseScreen.SetActive(true);
+        pauseScreen.SetActive(true);
     }
     public void ReasumeGame()
     {
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
-        //pauseScreen.SetActive(false);
+        pauseScreen.SetActive(false);
     }
     //metoda do aktywowania ekranu konca gry
     public void EndGame()
     {
+        Gamepad.current.ResetHaptics();
         //zatrzymaj czas gry
         Time.timeScale = 0;
         //Odblokuj kursor myszy
         Cursor.lockState = CursorLockMode.None;
-        //Aktywuj ekran konca gry
-        //endScreen.SetActive(true);
+        if(endScreen != null)
+            //Aktywuj ekran konca gry
+            endScreen.SetActive(true);
     }
 
     public void ResetStats()
     {
+        pauseScreen.SetActive(false);
+        endScreen.SetActive(false);
         barrier = 800;
         enemiesAlive = 0;
         kills = 0;
@@ -155,5 +166,25 @@ public class GameManager : MonoBehaviour
         roundText.text = "Round " + round.ToString();
         barrierText.text = barrier.ToString();
         killsText.text = kills.ToString();
+    }
+
+    public void OnPause()
+    {
+
+        if (!pause)
+        {
+            PauseGame();
+            pause = true;
+        }
+        else
+        {
+            ReasumeGame();
+            pause = false;
+        }
+    }
+
+    public void OnExit()
+    {
+        Application.Quit();
     }
 }

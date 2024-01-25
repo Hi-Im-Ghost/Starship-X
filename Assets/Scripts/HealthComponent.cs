@@ -19,7 +19,11 @@ public class HealthComponent : MonoBehaviour
             UpdateHealthBar(maxHealth, currentHealth);
         }
     }
-
+    public virtual void AddHealth(float health)
+    {
+        currentHealth += health;
+        UpdateHealthBar(maxHealth, currentHealth);
+    }
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;

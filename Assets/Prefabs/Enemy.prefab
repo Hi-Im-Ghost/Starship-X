@@ -211,7 +211,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -714,7 +714,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -826,7 +826,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8568020231403257700}
   - component: {fileID: 2403763102312178135}
-  - component: {fileID: 5055498466834987664}
   - component: {fileID: 789922307989626995}
   - component: {fileID: 6636411777497233269}
   m_Layer: 0
@@ -880,30 +879,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5055498466834987664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7608884702177195145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 676e90211f6555843aa3c3020f7bf1af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunsTransform:
-  - {fileID: 8363044429517056327}
-  - {fileID: 2594310050507900888}
-  middlePoint: {fileID: 5404113911384422712}
-  ammoText: {fileID: 0}
-  shootRange: 100
-  reloadingTime: 1
-  missileAmmo: 256
-  maxMissileAmmo: 512
-  missilePrefab: {fileID: 4527628991409457559, guid: 34d6dd193247ae5428995ffe6a3f3d80,
-    type: 3}
-  missileSpeed: 15
 --- !u!114 &789922307989626995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,8 +891,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db0005dfc9197e4caf802d7d714edd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torque: 100
-  thrust: 20
+  layerPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  layerPlayerBase:
+    serializedVersion: 2
+    m_Bits: 512
+  sightRange: 200
+  thrust: 25
+  rotationSpeed: 5
+  gunsTransform:
+  - {fileID: 8363044429517056327}
+  - {fileID: 2594310050507900888}
+  middlePoint: {fileID: 5404113911384422712}
+  shootRange: 110
+  reloadingTime: 4
+  missileAmmo: 64
+  maxMissileAmmo: 64
+  missilePrefab: {fileID: 4527628991409457559, guid: 34d6dd193247ae5428995ffe6a3f3d80,
+    type: 3}
+  missileSpeed: 15
 --- !u!114 &6636411777497233269
 MonoBehaviour:
   m_ObjectHideFlags: 0

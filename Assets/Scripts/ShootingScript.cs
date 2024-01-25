@@ -134,7 +134,7 @@ public class ShootingScript : MonoBehaviour
     {
         if (other.CompareTag("Ammo") && missileAmmo < maxMissileAmmo)
         {
-            missileAmmo+=24;
+            missileAmmo+=48;
             if (missileAmmo >= maxMissileAmmo)
             {
                 missileAmmo = maxMissileAmmo;

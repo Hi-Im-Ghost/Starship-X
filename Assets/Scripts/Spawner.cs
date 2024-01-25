@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] float maxRandomSpawn = 500f;
     [SerializeField] Color color;
     [SerializeField] int extraSpawn = 0;
+
     public void Spawn(int amount)
     {
         for (int i = 0; i < amount + extraSpawn; i++)

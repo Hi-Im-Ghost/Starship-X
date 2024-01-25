@@ -44,7 +44,7 @@ public class PlayerComponent : MonoBehaviour
 
     private CustomQuaternion rotationQuaternion = new CustomQuaternion(0, 0, 0, 1);
     private HealthComponent healthComponent;
-    bool pause = false;
+
     void Start()
     {
         healthComponent = GetComponent<HealthComponent>();
@@ -216,21 +216,6 @@ public class PlayerComponent : MonoBehaviour
 
     }
 
-    public void OnPause(InputAction.CallbackContext context)
-    {
-
-        if (!pause)
-        {
-            GameManager.Instance.PauseGame();
-            pause = true;
-        }
-        else
-        {
-            GameManager.Instance.ReasumeGame();
-            pause = false;
-        }
-    }
-
 
     public void UpdateBoostBar(float maxBoost, float currentBoost)
     {
@@ -259,7 +244,8 @@ public class PlayerComponent : MonoBehaviour
     {
         if (other.CompareTag("Energy") && GameManager.Instance.getBarrierBase() < GameManager.Instance.getMaxBarrierBase())
         {
-            GameManager.Instance.addBarrierBase(20);
+            GameManager.Instance.addBarrierBase(100);
+            healthComponent.AddHealth(5f);
             Destroy(other.gameObject);
         }
     }

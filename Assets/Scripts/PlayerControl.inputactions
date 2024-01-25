@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "d1e74c6a-462c-46aa-9d2b-61ca2e5a6dab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -423,11 +432,33 @@
                 {
                     "name": "",
                     "id": "9aa472c9-bde0-4572-8f47-b5101cfa9c4d",
-                    "path": "<Gamepad>/start",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e039812-9807-4715-935f-a277af88cce4",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27e175f5-2469-4e99-96cc-39d7af1c8d39",
+                    "path": "<Gamepad>/start",
+                    "interactions": "MultiTap(tapCount=3)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
