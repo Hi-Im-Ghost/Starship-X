@@ -43,9 +43,11 @@ public class PlayerComponent : MonoBehaviour
     Vector2 pitchYaw; // Wektor do przechowywania wartosci obrotu wokol osi Yaw (Z) i Pitch (Y)
 
     private CustomQuaternion rotationQuaternion = new CustomQuaternion(0, 0, 0, 1);
-
+    private HealthComponent healthComponent;
+    bool pause = false;
     void Start()
     {
+        healthComponent = GetComponent<HealthComponent>();
         rb = GetComponent<Rigidbody>(); // Inicjalizacja komponentu Rigidbody
         currentBoostAmount = maxBoostAmount; // Ustawienie maksymalnej iloœci boostu na starcie
         if (boostBar)
@@ -213,6 +215,22 @@ public class PlayerComponent : MonoBehaviour
         boosting = context.performed; // boost
 
     }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+
+        if (!pause)
+        {
+            GameManager.Instance.PauseGame();
+            pause = true;
+        }
+        else
+        {
+            GameManager.Instance.ReasumeGame();
+            pause = false;
+        }
+    }
+
 
     public void UpdateBoostBar(float maxBoost, float currentBoost)
     {

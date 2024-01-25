@@ -8,9 +8,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] float minRandomSpawn = -500f;
     [SerializeField] float maxRandomSpawn = 500f;
     [SerializeField] Color color;
+    [SerializeField] int extraSpawn = 0;
     public void Spawn(int amount)
     {
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < amount + extraSpawn; i++)
         {
             float randomX = Random.Range(minRandomSpawn, maxRandomSpawn) + transform.position.x;
             float randomY = Random.Range(minRandomSpawn, maxRandomSpawn) + transform.position.y;

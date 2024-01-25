@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
@@ -17,10 +18,12 @@ public class GameManager : MonoBehaviour
     //Max bariery bazy
     private float maxBarrier = 1000;
     //Bariera bazy
-    private float barrier = 1000;
+    private float barrier = 800;
     [Header("GUI Settings")]
     //Zmienna przechowujaca tekst rundy
     [SerializeField] TextMeshProUGUI roundText;
+    //Zmienna przechowujaca tekst zywych wrogow
+    [SerializeField] TextMeshProUGUI enemiesAliveText;
     //Zmienna przechowujaca tekst zabojstw
     [SerializeField] TextMeshProUGUI killsText;
     //Zmienna przechowujaca tekst wytrzymalosci bariery bazy
@@ -53,23 +56,20 @@ public class GameManager : MonoBehaviour
 
 
     void Update()
-    {/*
+    {
         //Sprawdz czy liczba zywych wrogow wynosi 0
-        if (enemiesAlive == 0)
+        if (enemiesAlive <= 0)
         {
             //zwieksz zmienna rundy
             round++;
             //wywolaj metode z parametrem rundy
-            NextWave(round);
+            NextRound(round);
             //wpisz do zmiennej tekstu rundy slowo + liczba przechowywana w zmiennej zmieniona na string
             roundText.text = "Round " + round.ToString();
         }else if(barrier <= 0)
         {
             EndGame();
-        }
-        
-      
-      */
+        } 
     }
 
     //metoda do wywolania nastepnej nastepnej rundy
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     public void addEnemyAlive(int value)
     {
         enemiesAlive += value;
+        enemiesAliveText.text = enemiesAlive.ToString();
     }
 
     public void addKills(int value)
@@ -113,6 +114,27 @@ public class GameManager : MonoBehaviour
     {
         return maxBarrier;
     }
+
+    public void StartEndGameDelay()
+    {
+        Invoke("EndGame", 5f); // Uruchomi EndGame po 5 sekundach
+    }
+
+    //metoda do aktywowania ekranu pauzy gry
+    public void PauseGame()
+    {
+        //zatrzymaj czas gry
+        Time.timeScale = 0;
+        //Odblokuj kursor myszy
+        Cursor.lockState = CursorLockMode.None;
+        //pauseScreen.SetActive(true);
+    }
+    public void ReasumeGame()
+    {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        //pauseScreen.SetActive(false);
+    }
     //metoda do aktywowania ekranu konca gry
     public void EndGame()
     {
@@ -134,5 +156,4 @@ public class GameManager : MonoBehaviour
         barrierText.text = barrier.ToString();
         killsText.text = kills.ToString();
     }
-
 }

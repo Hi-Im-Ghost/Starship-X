@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 507136218426083967}
   - component: {fileID: 607811880678292622}
   - component: {fileID: 3204805836323680367}
+  - component: {fileID: 3951608468279470800}
   m_Layer: 0
   m_Name: AsteroidLavaRedParticles
   m_TagString: Untagged
@@ -4915,3 +4916,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3951608468279470800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543232904026598070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437690d329187854688d06bca4d515a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

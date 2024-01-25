@@ -207,6 +207,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5094657773458214264, guid: 8b227e0429c621940acb9e2e8d18d12f,
         type: 3}
+      propertyPath: impactSound
+      value: 
+      objectReference: {fileID: 7537208430240725014, guid: 71c3a3ded138a224d89a8518feca52a6,
+        type: 3}
+    - target: {fileID: 5094657773458214264, guid: 8b227e0429c621940acb9e2e8d18d12f,
+        type: 3}
       propertyPath: missileDamage
       value: 20
       objectReference: {fileID: 0}

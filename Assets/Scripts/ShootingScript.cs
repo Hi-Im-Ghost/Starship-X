@@ -89,7 +89,13 @@ public class ShootingScript : MonoBehaviour
     {
         // Oblicz kierunek
         Vector3 direction = targetPosition - startPosition;
-        var missile = Instantiate(missilePrefab, startPosition, rotation);
+        GameObject missile = Instantiate(missilePrefab, startPosition, rotation);
+        // Przekazanie referencji do obiektu który inicjalizuje do rakiety
+        Missile missileScript = missile.GetComponent<Missile>();
+        if (missileScript != null)
+        {
+            missileScript.SetShooter(this.gameObject);
+        }
 
         Rigidbody missileRb = missile.GetComponent<Rigidbody>();
         missileRb.AddForce(direction.normalized * missileSpeed, ForceMode.Impulse);
