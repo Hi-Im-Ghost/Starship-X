@@ -129,7 +129,8 @@ public class GameManager : MonoBehaviour
     //metoda do aktywowania ekranu pauzy gry
     public void PauseGame()
     {
-        Gamepad.current.ResetHaptics();
+        if (Gamepad.current != null)
+            Gamepad.current.ResetHaptics();
         //zatrzymaj czas gry
         Time.timeScale = 0;
         //Odblokuj kursor myszy
@@ -145,7 +146,8 @@ public class GameManager : MonoBehaviour
     //metoda do aktywowania ekranu konca gry
     public void EndGame()
     {
-        Gamepad.current.ResetHaptics();
+        if(Gamepad.current != null)
+            Gamepad.current.ResetHaptics();
         //zatrzymaj czas gry
         Time.timeScale = 0;
         //Odblokuj kursor myszy
@@ -185,6 +187,8 @@ public class GameManager : MonoBehaviour
 
     public void OnExit()
     {
+        if (Gamepad.current != null)
+            Gamepad.current.ResetHaptics();
         Application.Quit();
     }
 }

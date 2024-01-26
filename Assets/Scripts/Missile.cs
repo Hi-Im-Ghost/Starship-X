@@ -32,29 +32,34 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (shooter.tag != collision.tag)
+        if (shooter.tag != null)
         {
-            if (shootableMask == (shootableMask | (1 << collision.gameObject.layer)))
+            if (shooter.tag != collision.tag)
             {
-                if (impactParticles)
+                if (shootableMask == (shootableMask | (1 << collision.gameObject.layer)))
                 {
-                    Destroy(Instantiate(impactParticles, collision.ClosestPoint(transform.position), Quaternion.identity), 5f);
-                }
-                if (impactSound)
-                {
-                    Destroy(Instantiate(impactSound, transform.position, Quaternion.identity), 5f);
-                }
-                if (collision.gameObject.GetComponentInParent<HealthComponent>())
-                {
-                    ApplyDamage(collision.gameObject.GetComponentInParent<HealthComponent>());
+                    if (impactParticles)
+                    {
+                        Destroy(Instantiate(impactParticles, collision.ClosestPoint(transform.position), Quaternion.identity), 5f);
+                    }
+                    if (impactSound)
+                    {
+                        Destroy(Instantiate(impactSound, transform.position, Quaternion.identity), 5f);
+                    }
+                    if (collision.gameObject.GetComponentInParent<HealthComponent>())
+                    {
+                        ApplyDamage(collision.gameObject.GetComponentInParent<HealthComponent>());
 
+                    }
+                    else if (collision.gameObject.CompareTag("Base"))
+                    {
+                        GameManager.Instance.addBarrierBase(-missileDamage);
+                    }
+                    if (gameObject != null)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
-                else if (collision.gameObject.CompareTag("Base"))
-                {
-                    GameManager.Instance.addBarrierBase(-missileDamage);
-                }
-                Destroy(gameObject);
-
             }
         }
     }
